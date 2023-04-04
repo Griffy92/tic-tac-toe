@@ -19,22 +19,22 @@ const nineBoard = {
     box8: "",
     box9: "",
     winner: function () {
-        if (this.box1 + this.box2 + this.box3 === 'ooo' || 'xxx') {
-            console.log(this.box1)
+        // omg fucking abomination
+        if (this.box1 + this.box2 + this.box3 === 'ooo' || this.box1 + this.box2 + this.box3 === 'xxx') {
             return this.box1;
-        } else if ( this.box1 + this.box4 + this.box7 === 'ooo' || 'xxx' ) {
+        } else if ( this.box1 + this.box4 + this.box7 === 'ooo' || this.box1 + this.box2 + this.box3 ===  'xxx' ) {
             return this.box1;
-        } else if ( this.box1 + this.box5 + this.box9 === 'ooo' || 'xxx' ) {
+        } else if ( this.box1 + this.box5 + this.box9 === 'ooo' || this.box1 + this.box5 + this.box9 ===  'xxx' ) {
             return this.box1;
-        } else if ( this.box2 + this.box5 + this.box8 === 'ooo' || 'xxx' ) {
+        } else if ( this.box2 + this.box5 + this.box8 === 'ooo' || this.box2 + this.box5 + this.box8 === 'xxx' ) {
             return this.box2;
-        } else if ( this.box3 + this.box5 + this.box7 === 'ooo' || 'xxx' ) {
+        } else if ( this.box3 + this.box5 + this.box7 === 'ooo' || this.box3 + this.box5 + this.box7 === 'xxx' ) {
             return this.box3;
-        } else if ( this.box3 + this.box6 + this.box9 === 'ooo' || 'xxx' ) {
+        } else if ( this.box3 + this.box6 + this.box9 === 'ooo' || this.box3 + this.box6 + this.box9 === 'xxx' ) {
             return this.box3;
-        } else if ( this.box4 + this.box5 + this.box6 === 'ooo' || 'xxx' ) {
+        } else if ( this.box4 + this.box5 + this.box6 === 'ooo' || this.box4 + this.box5 + this.box6 === 'xxx' ) {
             return this.box4;
-        } else if ( this.box7 + this.box8 + this.box9 === 'ooo' || 'xxx' ) {
+        } else if ( this.box7 + this.box8 + this.box9 === 'ooo' || this.box7 + this.box8 + this.box9 === 'xxx' ) {
             return this.box7;
         }
     }
@@ -58,18 +58,27 @@ $(document).ready( function () {
     $('.box').on('click', function(event) {
 
         render();
-        
-        if ( isPlayerXTurn ) {
-            nineBoard[event.target.id] = 'x'
-            isPlayerXTurn = false;
-        } else {
-            nineBoard[event.target.id] = 'o'
-            isPlayerXTurn = true;
+        if ( nineBoard[event.target.id] === "" ) {
+
+            if ( isPlayerXTurn ) {
+                nineBoard[event.target.id] = 'x'
+                isPlayerXTurn = false;
+                winner = nineBoard.winner();
+                if (winner) {
+                    console.log('Player X is the winner')
+                }
+            } else {
+                nineBoard[event.target.id] = 'o'
+                isPlayerXTurn = true;
+                winner = nineBoard.winner();
+                if (winner) {
+                    console.log('Player O is the winner')
+                }
+            }
         }
-        nineBoard.winner();
+
         // click a box and put a marker on it
         // check winner
-
         render();
     })
 
