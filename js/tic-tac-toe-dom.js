@@ -8,6 +8,9 @@ const render = function() {
     $(`#row2-col0`).text(game.board[2][0]);
     $(`#row2-col1`).text(game.board[2][1]);
     $(`#row2-col2`).text(game.board[2][2]);
+
+    $('#player-o').text(game.player2.counter);
+    $('#player-x').text(game.player1.counter);
 }
 
 $(document).ready( function () {
