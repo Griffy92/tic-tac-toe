@@ -4,11 +4,11 @@ let isPlayerXTurn = true;
 const game = {
     turn: 0,
     player1: {
-        name: "X",
+        name: "x",
         counter: 0,
     },
     player2: {
-        name: "O",
+        name: "o",
         counter: 0,
     },
     board: [
@@ -22,10 +22,12 @@ const game = {
             this.board[row][col] = 'x'
             isPlayerXTurn = false;
             this.turn += 1;
+            return this.board[row][col];
         } else {
             this.board[row][col] = 'o'
             isPlayerXTurn = true;
             this.turn += 1;
+            return this.board[row][col];
         }
     },
     checkWin: function ( string ) {
@@ -51,7 +53,7 @@ const game = {
     },
     checkDraw: function () {
         if ( this.turn === 9 && this.board.join("") !== ",,,,,,") {
-            alert('draw')
+            return true
         }
     },
     reset: function () {
@@ -63,6 +65,13 @@ const game = {
         };
         game.turn = 0;
         isPlayerXTurn = true;
+    },
+    updateCounter: function (player) {
+        if ( player === game.player1.name ) {
+            this.player1.counter += 1;
+        } else {
+            this.player2.counter += 1;
+        }
     }
 }
 

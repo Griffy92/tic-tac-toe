@@ -19,29 +19,29 @@ $(document).ready( function () {
         
         if ( !$(this).hasClass('disabled') ) {
             
+            $(this).addClass('disabled'); // disable button after click
+
             // get user input on which square was clicked
             const row = event.target.id.charAt(3); 
             const col = event.target.id.charAt(8); 
     
             // record player move
-            game.recordMove(row, col);
+            let player = game.recordMove(row, col);
+            console.log(player)
+            console.log(typeof player)
     
-            if ( game.checkWin('x') ) {
-                $('.box').addClass('disabled');
-                game.player1.counter += 1;
-                alert('x wins!');
-            };
-            if ( game.checkWin('o') ) {
-                $('.box').addClass('disabled');
-                game.player2.counter += 1;
-                alert('o wins')
-            };
-            game.checkDraw();
+            if ( game.checkWin(player) ) {
+                $('.box').addClass('disabled'); // disables all buttons if someone wins games
+                game.updateCounter(player);
+                $('.notification').removeClass('hidden')
+                $('.notification').html(`<p>The winner is ${player}!</p>`);
+            } else if ( game.checkDraw() ) {
+                $('.notification').removeClass('hidden')
+                $('.notification').html(`<p>It's a draw!</p>`);
+            }
     
             // check winner
             render(); // update the game board
-
-            $(this).addClass('disabled');
 
         }
         
@@ -51,6 +51,7 @@ $(document).ready( function () {
         game.reset();
         render();
         $('.box').removeClass('disabled');
+        $('.notification').addClass('hidden')
     });
 
 });
