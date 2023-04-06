@@ -6,7 +6,7 @@ const game = {
     aiMode: false,
     player1: {
         name: "x",
-        counter: 0,
+        counter: 0, // keeps track on how many games they won.
     },
     player2: {
         name: "o",
