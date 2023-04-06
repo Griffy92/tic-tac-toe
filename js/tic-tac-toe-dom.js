@@ -11,32 +11,42 @@ const render = function() {
 
     $('#player-o').text(game.player2.counter);
     $('#player-x').text(game.player1.counter);
+
+    $('.box').on('mouseenter mouseleave')
+
 }
 
 $(document).ready( function () {
+
+    // for ai mode - incomplete
+    // if ( game.aiMode && !isPlayerXTurn ) {
+    //     $('.box').trigger('click');
+    // }
     
     $('.box').on('click', function(event) {
+
+        $('.box').off('mouseenter mouseleave')
         
         if ( !$(this).hasClass('disabled') ) {
             
             $(this).addClass('disabled'); // disable button after click
-
+            $('.game-board').removeClass('animate__animated animate__flipInX');
             // get user input on which square was clicked
             const row = event.target.id.charAt(3); 
             const col = event.target.id.charAt(8); 
     
             // record player move
             let player = game.recordMove(row, col);
-            console.log(player)
-            console.log(typeof player)
+            // console.log(player)
+            // console.log(typeof player)
     
             if ( game.checkWin(player) ) {
                 $('.box').addClass('disabled'); // disables all buttons if someone wins games
-                game.updateCounter(player);
-                $('.notification').removeClass('hidden')
-                $('.notification').html(`<p>The winner is ${player}!</p>`);
+                game.updateCounter(player); // updates the tally of wins
+                $('.notification').removeClass('hidden') // shows the hidden notification div
+                $('.notification').html(`<p>The winner is ${player}!</p>`); // append the winner into the above div
             } else if ( game.checkDraw() ) {
-                $('.notification').removeClass('hidden')
+                $('.notification').removeClass('hidden') 
                 $('.notification').html(`<p>It's a draw!</p>`);
             }
     
@@ -48,10 +58,25 @@ $(document).ready( function () {
     })
 
     $('#restart').on('click', function () {
+        $('.game-board').addClass('animate__animated animate__flipInX') // flips the board when someone restarts and then resets game
         game.reset();
         render();
         $('.box').removeClass('disabled');
-        $('.notification').addClass('hidden')
+        $('.notification').addClass('hidden').html('')
     });
+
+
+    $('.box').hover(
+        
+        function () {
+            if ( isPlayerXTurn && $(this).text() === "" ) {
+                $(this).text('x');
+            } else {
+                $(this).text('o');
+            }
+        }, function () {
+            $(this).text('');
+        }
+    );
 
 });

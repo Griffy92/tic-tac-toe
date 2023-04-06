@@ -3,6 +3,7 @@ let isPlayerXTurn = true;
 
 const game = {
     turn: 0,
+    aiMode: false,
     player1: {
         name: "x",
         counter: 0,
@@ -18,17 +19,35 @@ const game = {
     ],
     recordMove: function ( row, col ) { 
         // takes in row col argument from click and updates the game board
-        if ( isPlayerXTurn ) {
-            this.board[row][col] = 'x'
-            isPlayerXTurn = false;
-            this.turn += 1;
-            return this.board[row][col];
+        // changes the turn between players
+        // updates the turn count
+        // returns the move made
+        if ( !game.aiMode ) {
+            if ( isPlayerXTurn ) {
+                this.board[row][col] = 'x'
+                isPlayerXTurn = false;
+                this.turn += 1;
+                return this.board[row][col];
+            } else {
+                this.board[row][col] = 'o'
+                isPlayerXTurn = true;
+                this.turn += 1;
+                return this.board[row][col];
+            }
         } else {
-            this.board[row][col] = 'o'
-            isPlayerXTurn = true;
-            this.turn += 1;
-            return this.board[row][col];
+            if ( isPlayerXTurn ) {
+                this.board[row][col] = 'x'
+                isPlayerXTurn = false;
+                this.turn += 1;
+                return this.board[row][col];
+            } else {
+                this.aiMove();
+                isPlayerXTurn = true;
+                this.turn += 1;
+                return this.board[row][col]
+            }
         }
+
     },
     checkWin: function ( string ) {
         // diagnoals
@@ -72,6 +91,26 @@ const game = {
         } else {
             this.player2.counter += 1;
         }
-    }
+    },
+    // aiMove: function () {
+    //     // opener move
+    //     const randInt = function ( max ) {
+    //         return Math.floor(Math.random() * max )
+    //     }
+
+    //     if ( this.turn <= 2 ) {
+    //         if ( this.board[0][0] === 'x' || this.board[0][2] === 'x' || this.board[2][0] === 'x' || this.board[2][2] === 'x' ) {
+    //             this.board[1][1] = 'o';
+    //             return this.board[1][1];
+    //         } else {
+    //             this.board[0][0] = 'o'; 
+    //             return this.board[0][0];
+    //         }
+    //     }
+
+    //     console.log(randInt(3));
+    //     this.board[randInt(3)][randInt(3)] = 'o';
+    //     return this.board[randInt(3)][randInt(3)];
+    // }
 }
 
