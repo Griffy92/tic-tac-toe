@@ -12,7 +12,7 @@ const render = function() {
     $('#player-o').text(game.player2.counter); // updates win tracker
     $('#player-x').text(game.player1.counter);
 
-    $('.box').on('mouseenter mouseleave')
+    // $('.box').on('mouseenter mouseleave')
 
 }
 
@@ -25,7 +25,7 @@ $(document).ready( function () {
     
     $('.box').on('click', function(event) {
 
-        $('.box').off('mouseenter mouseleave')
+        // $('.box').off('mouseenter mouseleave')
         
         if ( !$(this).hasClass('disabled') ) {
             
@@ -69,14 +69,24 @@ $(document).ready( function () {
     $('.box').hover(
         
         function () {
-            if ( isPlayerXTurn && $(this).text() === "" ) {
-                $(this).text('x');
+            if ( $(this).hasClass('disabled') ) {
+                return;
             } else {
-                $(this).text('o');
+                if ( isPlayerXTurn ) {
+                    $(this).text('x');
+                } else {
+                    $(this).text('o');
+                }
             }
         }, function () {
-            $(this).text('');
+            if ( $(this).hasClass('disabled') ) {
+                return;
+            } else {
+                $(this).text('');
+            }
         }
     );
+
+
 
 });
