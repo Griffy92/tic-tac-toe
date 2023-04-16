@@ -43,10 +43,10 @@ $(document).ready( function () {
             if ( game.checkWin(move) ) {
                 $('.box').addClass('disabled'); // disables all buttons if someone wins games
                 game.updateCounter(move); // updates the tally of wins
-                $('.notification').removeClass('hidden') // shows the hidden notification div
+                $('.notification').css('visibility','visible');  // shows the hidden notification div
                 $('.notification').html(`<p>The winner is ${move}!</p>`); // append the winner into the above div
             } else if ( game.checkDraw() ) {
-                $('.notification').removeClass('hidden') 
+                $('.notification').css('visibility','visible') ;
                 $('.notification').html(`<p>It's a draw!</p>`);
             }
     
@@ -62,7 +62,7 @@ $(document).ready( function () {
         game.reset();
         render();
         $('.box').removeClass('disabled');
-        $('.notification').addClass('hidden').html('')
+        $('.notification').css('visibility','hidden').html('')
     });
 
 

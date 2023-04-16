@@ -86,9 +86,6 @@ h2 {
     text-align: center;
     margin: 20px 0px 0px 0px;
     font-size: 300%;
-}
-
-.hidden {
     visibility: hidden;
 }
 
@@ -98,4 +95,8 @@ h2 {
 
 #ai-mode {
     visibility: hidden;
+}
+
+#player-o {
+    margin-right: 3em;
 }
